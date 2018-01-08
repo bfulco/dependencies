@@ -9,7 +9,7 @@ public class DependencyGraphTest {
 
     @Test
     public void test_basic() {
-        DependencyGraph graph = new DependencyGraph();
+        DependencyGraph graph = new SimpleDependencyGraph();
         graph.addDirect("A", Arrays.asList("B", "C"));
         graph.addDirect("B", Arrays.asList("C", "E"));
         graph.addDirect("C", Arrays.asList("G"));
@@ -29,7 +29,7 @@ public class DependencyGraphTest {
 
     @Test
     public void addEmptyGraph_hasEmtpyDependencies() {
-        DependencyGraph graph = new DependencyGraph();
+        DependencyGraph graph = new SimpleDependencyGraph();
         graph.addDirect("A", Collections.emptyList());
 
         assertEquals(Collections.emptyList(), graph.dependenciesFor("A"));
@@ -37,7 +37,7 @@ public class DependencyGraphTest {
 
     @Test
     public void addFlatGraph_hasCorrectDependencies() {
-        DependencyGraph graph = new DependencyGraph();
+        DependencyGraph graph = new SimpleDependencyGraph();
         graph.addDirect("A", Arrays.asList("B"));
         graph.addDirect("C", Arrays.asList("D"));
 
@@ -47,7 +47,7 @@ public class DependencyGraphTest {
 
     @Test
     public void addSimpleGraph_hasSimpleDependencies() {
-        DependencyGraph graph = new DependencyGraph();
+        DependencyGraph graph = new SimpleDependencyGraph();
         graph.addDirect("A", Arrays.asList("B"));
         graph.addDirect("B", Arrays.asList("C"));
 
@@ -57,7 +57,7 @@ public class DependencyGraphTest {
 
     @Test
     public void addCyclicGraph_hasCyclicDependencies() {
-        DependencyGraph graph = new DependencyGraph();
+        DependencyGraph graph = new SimpleDependencyGraph();
         graph.addDirect("A", Arrays.asList("B"));
         graph.addDirect("B", Arrays.asList("A"));
 
