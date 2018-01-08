@@ -61,7 +61,7 @@ public class DependencyGraphTest {
         graph.addDirect("A", Arrays.asList("B"));
         graph.addDirect("B", Arrays.asList("A"));
 
-        assertEquals(Arrays.asList("B"), graph.dependenciesFor("A"));
-        assertEquals(Arrays.asList("A"), graph.dependenciesFor("B"));
+        assertEquals(Arrays.asList("A", "B"), graph.dependenciesFor("A"));
+        assertEquals(Arrays.asList("A", "B"), graph.dependenciesFor("B"));
     }
 }

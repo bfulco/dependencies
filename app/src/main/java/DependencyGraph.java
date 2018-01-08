@@ -9,24 +9,22 @@ public class DependencyGraph {
 
     public List<String> dependenciesFor(String node) {
         List<String> dependencies = new ArrayList<String>();
-        dependencies.addAll(dependenciesForHelper(node));
+        dependencies.addAll(dependenciesForHelper(node, new HashSet<>()));
         return dependencies;
     }
 
-    private Set<String> dependenciesForHelper(String node) {
-        if(!graph.containsKey(node)) {
+    private Set<String> dependenciesForHelper(String node, Set<String> fullDep) {
+        if (!graph.containsKey(node)) {
             return Collections.emptySet();
         }
 
         Set<String> directDep = graph.get(node);
-        Set<String> fullDep = new HashSet<>(directDep);
 
-        for(String d : directDep) {
-            if(fullDep.contains(d)) {
-                continue;
+        for (String d : directDep) {
+            if (fullDep.add(d)) {
+                Set<String> s = dependenciesForHelper(d, fullDep);
+                fullDep.addAll(s);
             }
-            Set<String> s = dependenciesForHelper(d);
-            fullDep.addAll(s);
         }
 
         return fullDep;
